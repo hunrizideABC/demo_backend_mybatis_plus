@@ -18,7 +18,7 @@ class MyappApplicationTests {
 	@Test
 	void test() {
 		DeveloperDTO developerDTO = new DeveloperDTO();
-		boolean res = developerService.delete(19l);
+		boolean res = developerService.removeById(19l);
 		System.out.println(res);
 
 	}

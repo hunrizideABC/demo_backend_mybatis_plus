@@ -10,14 +10,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&serverTimezone=UTC
     username: root
-    password: abc123456
+    password: 12345678
 
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  global-config:
-    db-config:
-      id-type: auto
-  configuration:
-    auto-mapping-behavior: partial
-    map-underscore-to-camel-case: true

@@ -1,22 +1,16 @@
 package com.shop.myapp.dto;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResponseDTO {
-	private String resultCode;
+    private String resultCode;
     private Object res;
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public Object getRes() {
-        return res;
-    }
-
-    public void setRes(Object res) {
-        this.res = res;
-    }
 }

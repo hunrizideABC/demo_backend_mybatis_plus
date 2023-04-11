@@ -12,13 +12,4 @@ import java.util.List;
 
 public interface DeveloperService extends IService<DeveloperDTO> {
 
-    boolean create(DeveloperDTO developerDTO);
-    boolean update(DeveloperDTO developerDTO);
-
-    boolean delete(Long id);
-
-    DeveloperDTO list_one(Long id);
-
-    List<DeveloperDTO> list_all();
-
 }

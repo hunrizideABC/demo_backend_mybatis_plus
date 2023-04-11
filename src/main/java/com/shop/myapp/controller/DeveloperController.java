@@ -4,74 +4,57 @@ import com.shop.myapp.dto.DeveloperDTO;
 import com.shop.myapp.dto.ResponseDTO;
 import com.shop.myapp.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/developer")
 public class DeveloperController {
     @Autowired
     DeveloperService developerService;
 
-    @ResponseBody    //localhost:8095/developer/findAll
+    //localhost:8095/developer/findAll
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ResponseEntity<?> findAll() {
+    public ResponseDTO findAll() {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setResultCode("all_success");
-        responseDTO.setRes(developerService.list_all());
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        responseDTO.setRes(developerService.list());
+        return responseDTO;
     }
 
-    @RequestMapping(value = "/getDevelper/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<?> getDeveloper(@PathVariable Long id) {
+    @RequestMapping(value = "/getDeveloper/{id}", method = RequestMethod.GET)
+    public ResponseDTO getDeveloper(@PathVariable Long id) {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setResultCode("get_success");
-        responseDTO.setRes(developerService.list_one(id));
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        responseDTO.setRes(developerService.getById(id));
+        return responseDTO;
     }
 
-    @RequestMapping(value = "/deleteDevelper/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<?> deleteDevelper(@PathVariable Long id) {
-        boolean res = developerService.delete(id);
+    @RequestMapping(value = "/deleteDeveloper/{id}", method = RequestMethod.GET)
+    public ResponseDTO deleteDeveloper(@PathVariable Long id) {
+        boolean res = developerService.removeById(id);
         ResponseDTO responseDTO = new ResponseDTO();
-        if(res) {
-            responseDTO.setResultCode("del_success");
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-        }else{
-            responseDTO.setResultCode("del_fail");
-            return new ResponseEntity<>(responseDTO, HttpStatus.EXPECTATION_FAILED);
-        }
+        responseDTO.setResultCode("OK");
+        responseDTO.setRes(res);
+        return responseDTO;
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<?> insert(@RequestBody DeveloperDTO developerDTO) {
-        boolean res = developerService.create(developerDTO);
+    public ResponseDTO insert(@RequestBody DeveloperDTO developerDTO) {
+        boolean res = developerService.save(developerDTO);
         ResponseDTO responseDTO = new ResponseDTO();
-        if(res) {
-            responseDTO.setResultCode("insert_success");
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-        }else{
-            responseDTO.setResultCode("insert_fail");
-            return new ResponseEntity<>(responseDTO, HttpStatus.EXPECTATION_FAILED);
-        }
+        responseDTO.setResultCode("OK");
+        responseDTO.setRes(res);
+        return responseDTO;
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestBody DeveloperDTO developerDTO) {
-        boolean res = developerService.update(developerDTO);
+    public ResponseDTO update(@RequestBody DeveloperDTO developerDTO) {
+        boolean res = developerService.updateById(developerDTO);
         ResponseDTO responseDTO = new ResponseDTO();
-        if(res) {
-            responseDTO.setResultCode("update_success");
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-        }else{
-            responseDTO.setResultCode("update_fail");
-            return new ResponseEntity<>(responseDTO, HttpStatus.EXPECTATION_FAILED);
-        }
+        responseDTO.setResultCode("OK");
+        responseDTO.setRes(res);
+        return responseDTO;
     }
 
 }

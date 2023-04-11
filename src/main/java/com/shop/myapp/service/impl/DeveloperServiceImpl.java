@@ -15,35 +15,4 @@ import java.util.List;
 @Service
 public class DeveloperServiceImpl extends ServiceImpl<DeveloperMapper, DeveloperDTO>  implements DeveloperService {
 
-    @Autowired
-    DeveloperMapper developerMapper;
-
-
-    @Override
-    public boolean create(DeveloperDTO developerDTO) {
-        {
-            return save(developerDTO);
-        }
-    }
-
-    @Override
-    public boolean update(DeveloperDTO developerDTO) {
-        return updateById(developerDTO);
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return removeById(id);
-    }
-
-    @Override
-    public DeveloperDTO list_one(Long id) {
-        return getById(id);
-    }
-
-
-    @Override
-    public List<DeveloperDTO> list_all() {
-        return list();
-    }
 }
