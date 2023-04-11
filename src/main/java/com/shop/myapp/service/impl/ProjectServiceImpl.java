@@ -8,5 +8,4 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectDTO> implements ProjectService {
-
 }

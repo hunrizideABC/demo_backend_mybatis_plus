@@ -6,6 +6,7 @@ import com.shop.myapp.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.rmi.PortableRemoteObject;
 import java.util.List;
 
 @RestController
@@ -14,50 +15,48 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     ProjectService projectService;
+
     @GetMapping("/findAll")
     public ResponseDTO findAll(){
+        List<ProjectDTO> res = projectService.list();
         ResponseDTO responseDTO = new ResponseDTO();
-        List<ProjectDTO> projectDTOList = projectService.list();
         responseDTO.setResultCode("OK");
-        responseDTO.setRes(projectDTOList);
+        responseDTO.setRes(res);
         return responseDTO;
     }
 
-    @GetMapping("/getProject/{id}")
-    public ResponseDTO getProject(@PathVariable("id") long id){
+    @GetMapping("/findProject/{id}")
+    public ResponseDTO findProject(@PathVariable("id") long id){
+        ProjectDTO res = projectService.getById(id);
         ResponseDTO responseDTO = new ResponseDTO();
-        ProjectDTO projectDTO = projectService.getById(id);
         responseDTO.setResultCode("OK");
-        responseDTO.setRes(projectDTO);
+        responseDTO.setRes(res);
         return responseDTO;
     }
 
     @GetMapping("/delete/{id}")
     public ResponseDTO delete(@PathVariable("id") long id){
-        ResponseDTO responseDTO = new ResponseDTO();
         boolean res = projectService.removeById(id);
+        ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setResultCode("OK");
         responseDTO.setRes(res);
         return responseDTO;
     }
-
     @PostMapping("/insert")
     public ResponseDTO insert(@RequestBody ProjectDTO projectDTO){
-        ResponseDTO responseDTO = new ResponseDTO();
         boolean res = projectService.save(projectDTO);
+        ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setResultCode("OK");
         responseDTO.setRes(res);
         return responseDTO;
     }
-
 
     @PostMapping("/update")
     public ResponseDTO update(@RequestBody ProjectDTO projectDTO){
-        ResponseDTO responseDTO = new ResponseDTO();
         boolean res = projectService.updateById(projectDTO);
+        ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setResultCode("OK");
         responseDTO.setRes(res);
         return responseDTO;
     }
-
 }
